@@ -35,7 +35,55 @@ streamlit run dashboards/app.py
 
 # Super dashboard (all features)
 streamlit run dashboards/app_super.py
+
+# With custom config
+streamlit run dashboards/app.py --server.config streamlit_config.toml
 ```
+
+## 🚀 Deployment
+
+### Local Deployment
+```bash
+# One-click deployment
+python deploy.py
+
+# Or manually:
+python run_all.py
+streamlit run dashboards/app.py --server.config streamlit_config.toml
+```
+
+### Production Deployment
+
+#### Option 1: Streamlit Cloud
+1. Push to GitHub
+2. Connect repository to [Streamlit Cloud](https://share.streamlit.io)
+3. Deploy automatically on git push
+
+#### Option 2: Heroku
+```bash
+# Install Heroku CLI and login
+heroku create your-app-name
+git push heroku main
+```
+
+#### Option 3: Docker
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8501
+CMD ["streamlit", "run", "dashboards/app.py", "--server.config", "streamlit_config.toml"]
+```
+
+### GitHub Integration
+This project includes GitHub Actions for:
+- **Automated Testing**: Dependencies and pipeline validation
+- **Continuous Integration**: Analysis pipeline execution
+- **Automated Deployment**: Dashboard deployment on main branch updates
+
+See `.github/workflows/air_quality_health.yml` for CI/CD configuration.
 
 ## 📊 Project Structure
 
